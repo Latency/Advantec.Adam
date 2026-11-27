@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net48;net11.0</TargetFrameworks>
+		<Version>8.03.0026</Version>
+		<PackageId>Advantech.Adam</PackageId>
+		<Authors>Advantech</Authors>
+		<Company>Advantech</Company>
+		<Copyright>Copyright (C) Advantech 2020-2021</Copyright>
+		<PackageTags>C#;.NET;API;Visual Studio</PackageTags>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Description>Advantech AdamApax Win32 class libraries for .NET</Description>
+		<!-- Override -->
+		<OutputType>Library</OutputType>
+		<IsPackable>true</IsPackable>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Remove="README.md;lib\Advantech.Adam.dll;lib\Advantech.Common.dll;lib\Advantech.Graph.dll;lib\Advantech.Protocol.dll;lib\Advantech.Adam.xml;lib\Advantech.Common.xml;lib\Advantech.Graph.xml;lib\Advantech.Protocol.xml" />
+		<None Include="README.md" Pack="true" PackagePath="\" />
+		<None Include="lib\Advantech.Adam.dll;lib\Advantech.Common.dll;lib\Advantech.Graph.dll;lib\Advantech.Protocol.dll;lib\Advantech.Adam.xml;lib\Advantech.Common.xml;lib\Advantech.Graph.xml;lib\Advantech.Protocol.xml" Pack="true" PackagePath="lib\net48\%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<Target Name="ValidateVendorFiles" BeforeTargets="GenerateNuspec">
+		<ItemGroup>
+			<_VendorFile Include="lib\Advantech.Adam.dll;lib\Advantech.Common.dll;lib\Advantech.Graph.dll;lib\Advantech.Protocol.dll;lib\Advantech.Adam.xml;lib\Advantech.Common.xml;lib\Advantech.Graph.xml;lib\Advantech.Protocol.xml" />
+		</ItemGroup>
+		<Error Condition="!Exists('%(_VendorFile.Identity)')" Text="Required vendor file not found: %(_VendorFile.Identity)" />
+	</Target>
+
+</Project>
